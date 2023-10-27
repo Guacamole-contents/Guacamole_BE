@@ -9,5 +9,4 @@ public class GuakamoleApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GuakamoleApplication.class, args);
 	}
-
 }
