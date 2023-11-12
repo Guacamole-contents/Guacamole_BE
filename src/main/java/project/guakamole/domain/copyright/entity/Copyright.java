@@ -11,9 +11,8 @@ import project.guakamole.global.base.BaseTimeEntity;
 public class Copyright extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(name = "source_id", nullable = false)
-    private Long sourceId;
+    private Long id;
     @Column(name = "owner_name", nullable = false)
     private String ownerName;
     @Column(name = "copyright_name", nullable = false)
@@ -22,8 +21,7 @@ public class Copyright extends BaseTimeEntity {
     private String originalLink;
 
     @Builder
-    private Copyright(Long sourceId, String ownerName, String copyrightName, String originalLink) {
-        this.sourceId = sourceId;
+    private Copyright(String ownerName, String copyrightName, String originalLink) {
         this.ownerName = ownerName;
         this.copyrightName = copyrightName;
         this.originalLink = originalLink;
@@ -31,7 +29,6 @@ public class Copyright extends BaseTimeEntity {
 
     public static Copyright create(CreateCopyrightRequest request){
         return Copyright.builder()
-                .sourceId(request.getSourceId())
                 .ownerName(request.getOwnerName())
                 .copyrightName(request.getCopyrightName())
                 .originalLink(request.getOriginalLink())
