@@ -23,7 +23,7 @@ public class FindCopyrightResponse {
 
     public static FindCopyrightResponse of(final Copyright copyright) {
         return new FindCopyrightResponse(
-                copyright.getSourceId(),
+                copyright.getId(),
                 copyright.getOwnerName(),
                 copyright.getCopyrightName(),
                 copyright.getOriginalLink(),

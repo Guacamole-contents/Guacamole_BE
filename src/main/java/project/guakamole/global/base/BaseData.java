@@ -20,7 +20,6 @@ public class BaseData {
             //저작권 데이터 20개 생성
             for(int i=1; i<=20; i++){
                 CreateCopyrightRequest createCopyrightRequest = new CreateCopyrightRequest(
-                        Long.valueOf(i),
                         "테스트데이터",
                         "테스트저작물",
                         "www.222.link"

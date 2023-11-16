@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateCopyrightRequest {
-    private Long sourceId;
     private String ownerName;
     private String copyrightName;
     private String originalLink;

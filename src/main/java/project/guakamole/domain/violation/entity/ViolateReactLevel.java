@@ -1,5 +1,8 @@
 package project.guakamole.domain.violation.entity;
 
+import lombok.Getter;
+
+@Getter
 public enum ViolateReactLevel {
     /*
     검토단계, 대응단계, 완료단계
