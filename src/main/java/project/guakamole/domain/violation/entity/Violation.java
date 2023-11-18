@@ -31,6 +31,9 @@ public class Violation extends BaseTimeEntity {
     @Column(name = "violate_moment", nullable = false)
     private int violateMoment;
 
+    @Column(name = "violate_link", nullable = false)
+    private String violateLink;
+
     @OneToMany(mappedBy = "violation", cascade = CascadeType.ALL)
     private List<ViolationImage> images = new ArrayList<>();
 
@@ -38,27 +41,63 @@ public class Violation extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private ViolateReactLevel reactLevel;
 
+    @Column(name = "agreement_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AgreementType agreementType;
+
+    @Column(name = "agreement_amount", nullable = false)
+    private Long agreementAmount;
+
+    @Column(name = "contract_url")
+    private String contractUrl;
+
     @Builder
-    public Violation(Copyright copyright, String violatorName, LocalDateTime violateDate, int violateMoment, ViolateReactLevel reactLevel) {
+    public Violation(
+            Copyright copyright,
+            String violatorName,
+            LocalDateTime violateDate,
+            int violateMoment,
+            ViolateReactLevel reactLevel,
+            String violateLink,
+            AgreementType agreementType,
+            Long agreementAmount)
+    {
         this.copyright = copyright;
         this.violatorName = violatorName;
         this.violateDate = violateDate;
         this.violateMoment = violateMoment;
         this.reactLevel = reactLevel;
-        this.images = images;
+        this.violateLink = violateLink;
+        this.agreementType = agreementType;
+        this.agreementAmount = agreementAmount;
     }
 
-    public static Violation create(Copyright copyright, CreateViolationRequest request) {
+    public static Violation create(
+            Copyright copyright,
+            CreateViolationRequest request)
+    {
         return Violation.builder().
                 copyright(copyright)
                 .violatorName(request.getViolatorName())
                 .violateDate(request.getViolateDate())
                 .violateMoment(request.getViolateMoment())
-                .reactLevel(ViolateReactLevel.EXAMINE)
+                .violateLink(request.getLink())
+                .reactLevel(ViolateReactLevel.EXAMINE) //초기 검토중
+                .agreementType(AgreementType.HOLD)
+                .agreementAmount(0L)
                 .build();
     }
 
     public void addImage(ViolationImage image){
         this.images.add(image);
+    }
+
+    public void updateReactLevel(String reactLevel) {
+        if(reactLevel.equals("EXAMINE")) this.reactLevel = ViolateReactLevel.EXAMINE;
+        else if(reactLevel.equals("REACT")) this.reactLevel = ViolateReactLevel.REACT;
+        else if(reactLevel.equals("COMPLETED")) this.reactLevel = ViolateReactLevel.COMPLETED;
+
+        else
+            return;
     }
 }
