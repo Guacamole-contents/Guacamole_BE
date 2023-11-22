@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.guakamole.domain.common.PageResponse;
 import project.guakamole.domain.copyright.entity.Copyright;
 import project.guakamole.domain.copyright.service.CopyrightService;
 import project.guakamole.domain.violation.dto.request.CreateViolationRequest;
@@ -36,12 +37,14 @@ public class ViolationService {
     }
 
     @Transactional(readOnly = true)
-    public List<FindViolationResponse> findViolations(Pageable pageable) {
-        Page<Violation> violations = violationRepository.findViolations(pageable);
-
-        return violations.stream()
+    public PageResponse<List<FindViolationResponse>> findViolations(Pageable pageable) {
+        Page<Violation> violationPage = violationRepository.findViolations(pageable);
+        List<FindViolationResponse> response = violationPage.stream()
                 .map(FindViolationResponse::of)
                 .collect(Collectors.toList());
+
+        return PageResponse.of(response, violationPage);
+
     }
 
     @Transactional(readOnly = true)
