@@ -10,9 +10,9 @@ import project.guakamole.domain.copyright.dto.request.CreateCopyrightRequest;
 import project.guakamole.domain.copyright.dto.response.FindCopyrightResponse;
 import project.guakamole.domain.copyright.entity.Copyright;
 import project.guakamole.domain.copyright.repository.CopyrightRepository;
+import project.guakamole.domain.copyright.searchtype.CopyrightSearchType;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +20,15 @@ public class CopyrightService {
     private final CopyrightRepository copyrightRepository;
 
     @Transactional(readOnly = true)
-    public PageResponse<List<FindCopyrightResponse>> findCopyrights(Pageable pageable) {
-        Page<Copyright> copyrightPage = copyrightRepository.findCopyrights(pageable);
-        List<FindCopyrightResponse> response = copyrightPage.stream()
-                .map(FindCopyrightResponse::of)
-                .collect(Collectors.toList());
+    public PageResponse<List<FindCopyrightResponse>> findCopyrightsWithSearchCond(
+            Integer searchType,
+            String keyword,
+            Pageable pageable)
+    {
 
-        return PageResponse.of(response, copyrightPage);
+        Page<FindCopyrightResponse> copyrightPages = copyrightRepository.findCopyrightsWithSearchCond(CopyrightSearchType.get(searchType), keyword, pageable);
+
+        return PageResponse.of(copyrightPages.getContent(), copyrightPages);
     }
 
     @Transactional
@@ -40,4 +42,13 @@ public class CopyrightService {
                 () -> new IllegalArgumentException("not found copyright")
         );
     }
+
+    @Transactional
+    public void deleteCopyright(Long copyrightId) {
+        Copyright copyright = findById(copyrightId);
+
+        copyrightRepository.delete(copyright);
+    }
+
+
 }
