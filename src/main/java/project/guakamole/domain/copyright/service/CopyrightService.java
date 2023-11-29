@@ -5,12 +5,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.guakamole.domain.common.PageResponse;
 import project.guakamole.domain.copyright.dto.request.CreateCopyrightRequest;
 import project.guakamole.domain.copyright.dto.response.FindCopyrightResponse;
 import project.guakamole.domain.copyright.entity.Copyright;
 import project.guakamole.domain.copyright.repository.CopyrightRepository;
+import project.guakamole.domain.copyright.searchtype.CopyrightSearchType;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +20,15 @@ public class CopyrightService {
     private final CopyrightRepository copyrightRepository;
 
     @Transactional(readOnly = true)
-    public List<FindCopyrightResponse> findCopyrights(Pageable pageable) {
-        Page<Copyright> findCopyrights = copyrightRepository.findCopyrights(pageable);
-        return findCopyrights.stream()
-                .map(FindCopyrightResponse::of)
-                .collect(Collectors.toList());
+    public PageResponse<List<FindCopyrightResponse>> findCopyrightsWithSearchCond(
+            Integer searchType,
+            String keyword,
+            Pageable pageable)
+    {
+
+        Page<FindCopyrightResponse> copyrightPages = copyrightRepository.findCopyrightsWithSearchCond(CopyrightSearchType.get(searchType), keyword, pageable);
+
+        return PageResponse.of(copyrightPages.getContent(), copyrightPages);
     }
 
     @Transactional
@@ -36,4 +42,13 @@ public class CopyrightService {
                 () -> new IllegalArgumentException("not found copyright")
         );
     }
+
+    @Transactional
+    public void deleteCopyright(Long copyrightId) {
+        Copyright copyright = findById(copyrightId);
+
+        copyrightRepository.delete(copyright);
+    }
+
+
 }
