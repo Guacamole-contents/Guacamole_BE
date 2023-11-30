@@ -22,10 +22,11 @@ public class CopyrightSearchRepositoryImpl implements CopyrightSearchRepository{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<FindCopyrightResponse> findCopyrightsWithSearchCond(
+    public Page<FindCopyrightResponse> searchCopyright(
             CopyrightSearchType searchType,
             String keyword,
-            Pageable pageable) {
+            Pageable pageable)
+    {
         List<FindCopyrightResponse> response = queryFactory
                 .select(
                         Projections.constructor(FindCopyrightResponse.class,

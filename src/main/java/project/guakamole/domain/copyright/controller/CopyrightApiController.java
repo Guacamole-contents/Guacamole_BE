@@ -28,11 +28,18 @@ public class CopyrightApiController {
 
     @GetMapping
     public ResponseEntity<PageResponse> findCopyrights(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10, page = 0) Pageable pageable) {
+
+        return ResponseEntity.ok(copyrightService.findCopyrights(pageable));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<PageResponse> searchCopyrights(
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10, page = 0) Pageable pageable,
             @RequestParam(value = "searchType", required = false) Integer searchType,
             @RequestParam(value = "keyword", required = false) String keyword) {
 
-        return ResponseEntity.ok(copyrightService.findCopyrightsWithSearchCond(searchType, keyword, pageable));
+        return ResponseEntity.ok(copyrightService.searchCopyright(searchType, keyword, pageable));
     }
 
     @DeleteMapping("/{copyrightId}")

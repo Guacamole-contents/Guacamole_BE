@@ -55,21 +55,21 @@ class CopyrightSearchRepositoryImplTest {
 
             //when
             //cond 1
-            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.searchCopyright(
                     CopyrightSearchType.OWNER_NAME,
                     "저작권 소유자명1",
                     pageable
             );
 
             //cond 2
-            Page<FindCopyrightResponse> findCopyrights2 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights2 = copyrightRepository.searchCopyright(
                     CopyrightSearchType.OWNER_NAME,
                     "저작권 소유자명2",
                     pageable
             );
 
             // cond1 & cond2
-            Page<FindCopyrightResponse> findCopyrights3 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights3 = copyrightRepository.searchCopyright(
                     CopyrightSearchType.OWNER_NAME,
                     "저작권",
                     pageable
@@ -109,21 +109,21 @@ class CopyrightSearchRepositoryImplTest {
 
             //when
             //cond 1
-            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.searchCopyright(
                     CopyrightSearchType.COPYRIGHT_NAME,
                     "저작권명1",
                     pageable
             );
 
             //cond 2
-            Page<FindCopyrightResponse> findCopyrights2 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights2 = copyrightRepository.searchCopyright(
                     CopyrightSearchType.COPYRIGHT_NAME,
                     "저작권명2",
                     pageable
             );
 
             // cond1 & cond2
-            Page<FindCopyrightResponse> findCopyrights3 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights3 = copyrightRepository.searchCopyright(
                     CopyrightSearchType.COPYRIGHT_NAME,
                     "저작권",
                     pageable
@@ -160,14 +160,14 @@ class CopyrightSearchRepositoryImplTest {
 
             //when
             //cond 1
-            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.searchCopyright(
                     CopyrightSearchType.SOURCE_ID,
                     String.valueOf(1L),
                     pageable
             );
 
             //cond 2
-            Page<FindCopyrightResponse> findCopyrights2 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights2 = copyrightRepository.searchCopyright(
                     CopyrightSearchType.SOURCE_ID,
                     String.valueOf(2L),
                     pageable
@@ -217,14 +217,14 @@ class CopyrightSearchRepositoryImplTest {
 
             //when
             //cond 1 - 전체 데이터가 나와야 한다.
-            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.searchCopyright(
                     null,
                     "저작권",
                     pageable
             );
 
             //cond 2 - sourceId가 1인 or 저작권명에 1이 들어가는 데이터 전부
-            Page<FindCopyrightResponse> findCopyrights2 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights2 = copyrightRepository.searchCopyright(
                     null,
                     String.valueOf(1L),
                     pageable
@@ -265,7 +265,7 @@ class CopyrightSearchRepositoryImplTest {
 
             //when
             //cond 1 - 전체 데이터가 나와야 한다.
-            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.findCopyrightsWithSearchCond(
+            Page<FindCopyrightResponse> findCopyrights1 = copyrightRepository.searchCopyright(
                     null,
                     null,
                     pageable
