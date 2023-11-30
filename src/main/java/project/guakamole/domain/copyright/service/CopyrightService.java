@@ -13,6 +13,7 @@ import project.guakamole.domain.copyright.repository.CopyrightRepository;
 import project.guakamole.domain.copyright.searchtype.CopyrightSearchType;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +21,25 @@ public class CopyrightService {
     private final CopyrightRepository copyrightRepository;
 
     @Transactional(readOnly = true)
-    public PageResponse<List<FindCopyrightResponse>> findCopyrightsWithSearchCond(
+    public PageResponse<List<FindCopyrightResponse>> findCopyrights(Pageable pageable)
+    {
+        Page<Copyright> copyrightPages = copyrightRepository.findAll(pageable);
+
+        List<FindCopyrightResponse> responses = copyrightPages.stream()
+                .map(FindCopyrightResponse::of)
+                .collect(Collectors.toList());
+
+        return PageResponse.of(responses, copyrightPages);
+    }
+
+    @Transactional(readOnly = true)
+    public PageResponse<List<FindCopyrightResponse>> searchCopyright(
             Integer searchType,
             String keyword,
             Pageable pageable)
     {
 
-        Page<FindCopyrightResponse> copyrightPages = copyrightRepository.findCopyrightsWithSearchCond(CopyrightSearchType.get(searchType), keyword, pageable);
+        Page<FindCopyrightResponse> copyrightPages = copyrightRepository.searchCopyright(CopyrightSearchType.get(searchType), keyword, pageable);
 
         return PageResponse.of(copyrightPages.getContent(), copyrightPages);
     }
@@ -49,6 +62,4 @@ public class CopyrightService {
 
         copyrightRepository.delete(copyright);
     }
-
-
 }

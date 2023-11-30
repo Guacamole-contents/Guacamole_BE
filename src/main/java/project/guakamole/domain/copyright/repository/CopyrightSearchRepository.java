@@ -7,5 +7,5 @@ import project.guakamole.domain.copyright.searchtype.CopyrightSearchType;
 
 
 public interface CopyrightSearchRepository {
-    Page<FindCopyrightResponse> findCopyrightsWithSearchCond(CopyrightSearchType searchType, String keyword, Pageable pageable);
+    Page<FindCopyrightResponse> searchCopyright(CopyrightSearchType searchType, String keyword, Pageable pageable);
 }
