@@ -1,6 +1,8 @@
 package project.guakamole.domain.copyright.repository;
 
+import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,12 +26,23 @@ class CopyrightSearchRepositoryImplTest {
     @Autowired
     protected CopyrightRepository copyrightRepository;
 
+    @Autowired
+    protected EntityManager entityManager;
+
+    @AfterEach
+    public void teardown() {
+        this.copyrightRepository.deleteAll();
+        this.entityManager
+                .createNativeQuery("ALTER TABLE copyright ALTER COLUMN `source_id` RESTART WITH 1")
+                .executeUpdate();
+    }
+
     @Nested
     @DisplayName("조건 검색에 따른 저작권 목록 조회")
-    class FindCopyrightsBySearchCond{
+    class SearchCopyright{
         @DisplayName("저작권자 이름으로 데이터 검색")
         @Test
-        void findCopyrightsBySearchCond_searchTypeEqOwnerName() {
+        void searchCopyright_searchTypeEqOwnerName() {
             //given
 
             // cond 1
@@ -83,7 +96,7 @@ class CopyrightSearchRepositoryImplTest {
 
         @DisplayName("저작권명으로 데이터 검색")
         @Test
-        void findCopyrightsBySearchCond_searchTypeEqCopyrightName() {
+        void searchCopyright_searchTypeEqCopyrightName() {
             //given
 
             // cond 1
@@ -137,7 +150,7 @@ class CopyrightSearchRepositoryImplTest {
 
         @DisplayName("저작권 번호로 데이터 검색")
         @Test
-        void findCopyrightsBySearchCond_searchTypeEqSourceId() {
+        void searchCopyright_searchTypeEqSourceId() {
             //given
 
             // cond 1
@@ -186,7 +199,7 @@ class CopyrightSearchRepositoryImplTest {
 
         @DisplayName("검색 유형 설정 없이 데이터 검색")
         @Test
-        void findCopyrightsBySearchCond_all_search() {
+        void searchCopyright_all_search() {
             //given
 
             // cond 1
@@ -240,7 +253,7 @@ class CopyrightSearchRepositoryImplTest {
 
         @DisplayName("검색 없이 전체 조회")
         @Test
-        void findCopyrightsBySearchCond_all() {
+        void searchCopyright_all() {
             //given
 
             // cond 1

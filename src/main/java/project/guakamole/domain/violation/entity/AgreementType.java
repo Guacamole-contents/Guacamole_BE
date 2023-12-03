@@ -23,4 +23,17 @@ public enum AgreementType {
             throw new IllegalArgumentException("잘못된 접근입니다.");
         }
     }
+
+    public static AgreementType get(Integer code){
+        if(code == 1)
+            return AgreementType.HOLD;
+        else if(code == 2)
+            return AgreementType.AGREEMENT;
+        else if(code == 3)
+            return AgreementType.REQUEST_DELETE;
+        else if(code == 4)
+            return AgreementType.LEGAL_RESPONSE;
+
+        throw new IllegalArgumentException("잘못된 접근입니다.");
+    }
 }

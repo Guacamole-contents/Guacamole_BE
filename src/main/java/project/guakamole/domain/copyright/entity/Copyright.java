@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SQLDelete(sql = "UPDATE copyright SET deleted_date = CURRENT_TIMESTAMP WHERE id = ?")
+@SQLDelete(sql = "UPDATE copyright SET deleted_date = CURRENT_TIMESTAMP WHERE source_id = ?")
 @Where(clause = "deleted_date is null")
 @Entity
 public class Copyright extends BaseTimeEntity {

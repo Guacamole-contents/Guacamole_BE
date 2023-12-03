@@ -6,7 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import project.guakamole.domain.common.PageResponse;
+import project.guakamole.domain.common.dto.PageResponse;
 import project.guakamole.domain.copyright.dto.request.CreateCopyrightRequest;
 import project.guakamole.domain.copyright.service.CopyrightService;
 

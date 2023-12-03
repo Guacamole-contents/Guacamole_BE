@@ -1,5 +1,6 @@
 package project.guakamole.domain.violation.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import project.guakamole.domain.violation.entity.Violation;
@@ -11,7 +12,9 @@ public class DetailViolationResponse {
     private final Long sourceId;
     private final Long violateId;
     private final String violatorName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private final LocalDateTime violateDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private final LocalDateTime reportDate;
     private final Integer violateMoment;
     private final String agreementType;
@@ -46,7 +49,7 @@ public class DetailViolationResponse {
                 .agreementType(violation.getAgreementType().getValue())
                 .agreementAmount(violation.getAgreementAmount())
                 .reactLevel(violation.getReactLevel().getValue())
-                .agreementPaymentLink("www.payment.com")
+                .agreementPaymentLink(violation.getAgreementPaymentLink())
                 .contractUrl(violation.getContractUrl())
                 .build()
                 ;
