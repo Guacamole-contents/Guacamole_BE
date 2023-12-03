@@ -7,7 +7,7 @@ public class CopyrightObjectCreator {
     private static final String copyrightName = "저작권명";
     private static final String originalLink = "저작권 링크";
 
-    public static Copyright copyright(Long id){
+    public static Copyright autoCopyright(){
         return Copyright.builder()
                 .copyrightName(copyrightName)
                 .ownerName(ownerName)

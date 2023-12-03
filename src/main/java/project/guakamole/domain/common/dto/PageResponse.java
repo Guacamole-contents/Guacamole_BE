@@ -1,4 +1,4 @@
-package project.guakamole.domain.common;
+package project.guakamole.domain.common.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

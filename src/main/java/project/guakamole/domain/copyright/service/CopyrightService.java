@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.guakamole.domain.common.PageResponse;
+import project.guakamole.domain.common.dto.PageResponse;
 import project.guakamole.domain.copyright.dto.request.CreateCopyrightRequest;
 import project.guakamole.domain.copyright.dto.response.FindCopyrightResponse;
 import project.guakamole.domain.copyright.entity.Copyright;
