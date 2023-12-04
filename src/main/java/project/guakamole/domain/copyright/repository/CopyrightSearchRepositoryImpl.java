@@ -63,7 +63,8 @@ public class CopyrightSearchRepositoryImpl implements CopyrightSearchRepository{
                     or(copyright.copyrightName.contains(keyword));
 
         if(searchType == null && !isLong(keyword))
-            return copyright.ownerName.contains(keyword);
+            return copyright.ownerName.contains(keyword).
+                    or(copyright.copyrightName.contains(keyword));
 
         if (searchType == CopyrightSearchType.SOURCE_ID && isLong(keyword))
             return copyright.id.eq(Long.valueOf(keyword));
