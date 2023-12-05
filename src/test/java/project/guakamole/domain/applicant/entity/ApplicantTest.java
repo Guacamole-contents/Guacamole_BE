@@ -16,7 +16,7 @@ class ApplicantTest {
                 .email("test@email.com")
                 .chanelLink("www.test.com")
                 .approveStatus(ApplicantApproveStatus.HOLD)
-                .chanelName("테스트 채널명")
+                .creatorName("테스트 채널명")
                 .build();
 
         //then
@@ -31,7 +31,7 @@ class ApplicantTest {
                 .email("test@email.com")
                 .chanelLink("www.test.com")
                 .approveStatus(ApplicantApproveStatus.HOLD)
-                .chanelName("테스트 채널명")
+                .creatorName("테스트 채널명")
                 .build();
 
         //then
