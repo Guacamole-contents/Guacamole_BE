@@ -4,16 +4,14 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import project.guakamole.global.base.BaseTimeEntity;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class ViolationImage extends BaseTimeEntity {
-
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ViolationContractFile extends BaseTimeEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,7 +23,7 @@ public class ViolationImage extends BaseTimeEntity {
     @Column(name = "url", nullable = false)
     private String url;
 
-    public ViolationImage(Violation violation, String originalFileName, String url) {
+    public ViolationContractFile(Violation violation, String originalFileName, String url) {
         this.violation = violation;
         this.originalFileName = originalFileName;
         this.url = url;

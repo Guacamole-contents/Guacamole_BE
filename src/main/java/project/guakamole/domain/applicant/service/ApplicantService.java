@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.guakamole.domain.applicant.dto.ApplicantInfoDto;
 import project.guakamole.domain.applicant.dto.request.ReviewApplicantRequest;
 import project.guakamole.domain.applicant.dto.response.DetailApplicantResponse;
 import project.guakamole.domain.applicant.dto.response.FindApplicantResponse;
@@ -13,6 +14,7 @@ import project.guakamole.domain.applicant.entity.ApplicantApproveStatus;
 import project.guakamole.domain.applicant.repository.ApplicantRepository;
 import project.guakamole.domain.applicant.searchtype.ApplicantSearchType;
 import project.guakamole.domain.common.dto.PageResponse;
+import project.guakamole.domain.creator.service.CreatorService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ApplicantService {
     private final ApplicantRepository applicantRepository;
+    private final CreatorService creatorService;
 
     @Transactional(readOnly = true)
     public PageResponse<List<FindApplicantResponse>> findApplicants(Pageable pageable) {
@@ -50,7 +53,8 @@ public class ApplicantService {
         applicant.updateApproveStatus(status);
         applicant.updateNote(request.getNote());
 
-        //승인 되었으니 회원 생성되어야 함.
+        if(status == ApplicantApproveStatus.APPROVE)
+            creatorService.create(new ApplicantInfoDto(applicant.getCreatorName(), applicant.getEmail(), applicant.getChanelLink()));
     }
 
     public DetailApplicantResponse findApplicant(Long applicantId) {

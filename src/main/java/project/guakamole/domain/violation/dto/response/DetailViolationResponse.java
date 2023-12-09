@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
 import project.guakamole.domain.violation.entity.Violation;
+import project.guakamole.domain.violation.entity.ViolationContractFile;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class DetailViolationResponse {
@@ -21,10 +24,23 @@ public class DetailViolationResponse {
     private final Long agreementAmount;
     private final String reactLevel;
     private final String agreementPaymentLink;
-    private final String contractUrl;
+    private final List<String> contractFileNames;
+    private final List<String> contractUrls;
 
     @Builder
-    public DetailViolationResponse(Long sourceId, Long violateId, String violatorName, LocalDateTime violateDate, LocalDateTime reportDate, Integer violateMoment, String agreementType, Long agreementAmount, String reactLevel, String agreementPaymentLink, String contractUrl) {
+    public DetailViolationResponse(
+            Long sourceId,
+            Long violateId,
+            String violatorName,
+            LocalDateTime violateDate,
+            LocalDateTime reportDate,
+            Integer violateMoment,
+            String agreementType,
+            Long agreementAmount,
+            String reactLevel,
+            String agreementPaymentLink,
+            List<String> contractFileNames,
+            List<String> contractUrls) {
         this.sourceId = sourceId;
         this.violateId = violateId;
         this.violatorName = violatorName;
@@ -35,10 +51,19 @@ public class DetailViolationResponse {
         this.agreementAmount = agreementAmount;
         this.reactLevel = reactLevel;
         this.agreementPaymentLink = agreementPaymentLink;
-        this.contractUrl = contractUrl;
+        this.contractFileNames = contractFileNames;
+        this.contractUrls = contractUrls;
     }
 
     public static DetailViolationResponse of(Violation violation){
+        List<String> contractUrls = null;
+        List<String> contractFileNames = null;
+        if(violation.getContractFiles() != null && !violation.getContractFiles().isEmpty()){
+            contractUrls = violation.getContractFiles().stream().map(ViolationContractFile::getUrl).collect(Collectors.toList());
+            contractFileNames = violation.getContractFiles().stream().map(ViolationContractFile::getOriginalFileName).collect(Collectors.toList());
+        }
+
+
         return DetailViolationResponse.builder()
                 .sourceId(violation.getCopyright().getId())
                 .violateId(violation.getId())
@@ -50,9 +75,9 @@ public class DetailViolationResponse {
                 .agreementAmount(violation.getAgreementAmount())
                 .reactLevel(violation.getReactLevel().getValue())
                 .agreementPaymentLink(violation.getAgreementPaymentLink())
-                .contractUrl(violation.getContractUrl())
+                .contractFileNames(contractFileNames)
+                .contractUrls(contractUrls)
                 .build()
                 ;
-
     }
 }

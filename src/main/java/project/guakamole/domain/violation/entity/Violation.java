@@ -53,11 +53,8 @@ public class Violation extends BaseTimeEntity {
     @Column(name = "agreement_amount", nullable = false)
     private Long agreementAmount;
 
-    @Column(name = "contract_url")
-    private String contractUrl;
-
-    @Column(name = "deleted_date")
-    private LocalDateTime deletedDate;
+    @OneToMany(mappedBy = "violation", cascade = CascadeType.ALL)
+    private List<ViolationContractFile> contractFiles = new ArrayList<>();
 
     @Column(name = "agreement_payment_link")
     private String agreementPaymentLink;
@@ -92,7 +89,7 @@ public class Violation extends BaseTimeEntity {
                 .violatorName(request.getViolatorName())
                 .violateDate(request.getViolateDate())
                 .violateMoment(request.getViolateMoment())
-                .violateLink(request.getLink())
+                .violateLink(request.getViolateLink())
                 .reactLevel(ViolateReactLevel.EXAMINE) //초기 검토중
                 .agreementType(AgreementType.HOLD)
                 .agreementAmount(0L)
@@ -101,6 +98,10 @@ public class Violation extends BaseTimeEntity {
 
     public void addImage(ViolationImage image){
         this.images.add(image);
+    }
+
+    public void addContractFile(ViolationContractFile file){
+        this.contractFiles.add(file);
     }
 
     public void updateReactLevel(Integer code) {
