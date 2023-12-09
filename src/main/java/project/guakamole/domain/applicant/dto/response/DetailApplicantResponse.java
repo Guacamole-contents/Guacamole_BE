@@ -14,14 +14,16 @@ public class DetailApplicantResponse {
     private String email;
     private List<String> imageUrls;
     private String chanelLink;
+    private String approveStatus;
     private String note;
 
-    public DetailApplicantResponse(Long id, String creatorName, String email, List<String> imageUrls, String chanelLink, String note) {
+    public DetailApplicantResponse(Long id, String creatorName, String email, List<String> imageUrls, String chanelLink, String approveStatus, String note) {
         this.id = id;
         this.creatorName = creatorName;
         this.email = email;
         this.imageUrls = imageUrls;
         this.chanelLink = chanelLink;
+        this.approveStatus = approveStatus;
         this.note = note;
     }
 
@@ -34,6 +36,7 @@ public class DetailApplicantResponse {
                 applicant.getEmail(),
                 imageUrls,
                 applicant.getChanelLink(),
+                applicant.getApproveStatus().getValue(),
                 applicant.getNote()
         );
     }
