@@ -7,8 +7,6 @@ import org.hibernate.annotations.Where;
 import project.guakamole.domain.copyright.dto.request.CreateCopyrightRequest;
 import project.guakamole.global.base.BaseTimeEntity;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLDelete(sql = "UPDATE copyright SET deleted_date = CURRENT_TIMESTAMP WHERE source_id = ?")
@@ -25,8 +23,6 @@ public class Copyright extends BaseTimeEntity {
     private String copyrightName;
     @Column(name = "original_link", nullable = false)
     private String originalLink;
-    @Column(name = "deleted_date")
-    private LocalDateTime deletedDate;
 
     @Builder
     private Copyright(String ownerName, String copyrightName, String originalLink) {

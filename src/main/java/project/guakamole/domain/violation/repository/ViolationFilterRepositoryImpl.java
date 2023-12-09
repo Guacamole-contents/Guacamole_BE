@@ -12,6 +12,7 @@ import project.guakamole.domain.violation.dto.FilterViolationDto;
 import project.guakamole.domain.violation.dto.response.FindViolationResponse;
 import project.guakamole.domain.violation.entity.AgreementType;
 import project.guakamole.domain.violation.entity.ViolateReactLevel;
+import project.guakamole.domain.violation.entity.Violation;
 import project.guakamole.domain.violation.searchtype.ViolationSearchType;
 
 import java.time.LocalDateTime;
@@ -22,16 +23,22 @@ import static project.guakamole.domain.violation.entity.QViolation.violation;
 
 @Repository
 @RequiredArgsConstructor
-public class ViolationSearchRepositoryImpl implements ViolationSearchRepository {
+public class ViolationFilterRepositoryImpl implements ViolationFilterRepository {
 
     private final JPAQueryFactory queryFactory;
+
+    @Override
+    public Page<FindViolationResponse> findViolationWithFilter(FilterViolationDto filter, Pageable pageable) {
+        return searchViolationWithFilter(null, null, filter, pageable);
+    }
 
     @Override
     public Page<FindViolationResponse> searchViolationWithFilter(
             ViolationSearchType searchType,
             String keyword,
             FilterViolationDto filter,
-            Pageable pageable) {
+            Pageable pageable)
+    {
         List<FindViolationResponse> responses = queryFactory
                 .select(
                         Projections.constructor(FindViolationResponse.class,
