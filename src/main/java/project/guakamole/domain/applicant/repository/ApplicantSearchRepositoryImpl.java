@@ -29,7 +29,7 @@ public class ApplicantSearchRepositoryImpl implements ApplicantSearchRepository 
                 select(
                         Projections.constructor(FindApplicantResponse.class,
                                 applicant.id,
-                                applicant.chanelName,
+                                applicant.creatorName,
                                 applicant.chanelLink
                         )
                 )
@@ -57,18 +57,18 @@ public class ApplicantSearchRepositoryImpl implements ApplicantSearchRepository 
 
         if(searchType == null && isLong(keyword))
             return applicant.id.eq(Long.valueOf(keyword)).
-                    or(applicant.chanelName.contains(keyword)).
+                    or(applicant.creatorName.contains(keyword)).
                     or(applicant.email.contains(keyword));
 
         if(searchType == null && !isLong(keyword))
-            return applicant.chanelName.contains(keyword)
+            return applicant.creatorName.contains(keyword)
                     .or(applicant.email.contains(keyword));
 
         if (searchType == ApplicantSearchType.USER_ID && isLong(keyword))
             return applicant.id.eq(Long.valueOf(keyword));
 
         if (searchType == ApplicantSearchType.CHANEL_NAME)
-            return applicant.chanelName.contains(keyword);
+            return applicant.creatorName.contains(keyword);
 
         if (searchType == ApplicantSearchType.EMAIL)
             return applicant.email.contains(keyword);
@@ -88,7 +88,7 @@ public class ApplicantSearchRepositoryImpl implements ApplicantSearchRepository 
     private OrderSpecifier<Integer> orderCond = new CaseBuilder()
             .when(applicant.approveStatus.eq(ApplicantApproveStatus.HOLD)).then(1)
             .when(applicant.approveStatus.eq(ApplicantApproveStatus.APPROVE)).then(2)
-            .when(applicant.approveStatus.eq(ApplicantApproveStatus.DECLINE)).then(3)
-            .otherwise(4)
+            .when(applicant.approveStatus.eq(ApplicantApproveStatus.DECLINE)).then(2)
+            .otherwise(3)
             .asc(); // 오름차순으로 정렬
 }

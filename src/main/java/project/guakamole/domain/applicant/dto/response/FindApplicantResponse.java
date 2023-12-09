@@ -18,7 +18,7 @@ public class FindApplicantResponse {
     public static FindApplicantResponse of(Applicant applicant) {
         return new FindApplicantResponse(
                 applicant.getId(),
-                applicant.getChanelName(),
+                applicant.getCreatorName(),
                 applicant.getEmail()
         );
     }
