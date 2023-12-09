@@ -17,6 +17,7 @@ public enum ApplicantApproveStatus {
         if(code == null)
             return null;
 
+        if(code==0) return ApplicantApproveStatus.HOLD;
         if(code==1) return ApplicantApproveStatus.APPROVE;
         if(code==2) return ApplicantApproveStatus.DECLINE;
 

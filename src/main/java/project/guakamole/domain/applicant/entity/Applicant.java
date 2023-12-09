@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SQLDelete(sql = "UPDATE applicant SET deleted_date = CURRENT_TIMESTAMP WHERE source_id = ?")
+@SQLDelete(sql = "UPDATE applicant SET deleted_date = CURRENT_TIMESTAMP WHERE id = ?")
 @Where(clause = "deleted_date is null")
 public class Applicant extends BaseTimeEntity {
     @Id
@@ -27,6 +27,7 @@ public class Applicant extends BaseTimeEntity {
     @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL)
     private List<ApplicantAuthenticationImage> images = new ArrayList<>();
     @Column(name = "approve_status", nullable = false)
+    @Enumerated(EnumType.STRING)
     private ApplicantApproveStatus approveStatus;
     @Column(name = "note", columnDefinition = "")
     private String note = ""; //승인 또는 거절시 텍스트 입력란
