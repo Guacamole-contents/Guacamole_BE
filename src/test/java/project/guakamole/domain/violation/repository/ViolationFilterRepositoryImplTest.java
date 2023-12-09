@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Import({DataConfig.class, JpaAuditingConfig.class})
 @DataJpaTest
-class ViolationSearchRepositoryImplTest {
+class ViolationFilterRepositoryImplTest {
     @Autowired
     protected ViolationRepository violationRepository;
     @Autowired

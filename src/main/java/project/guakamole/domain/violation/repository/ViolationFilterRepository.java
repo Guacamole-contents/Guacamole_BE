@@ -6,11 +6,16 @@ import project.guakamole.domain.violation.dto.FilterViolationDto;
 import project.guakamole.domain.violation.dto.response.FindViolationResponse;
 import project.guakamole.domain.violation.searchtype.ViolationSearchType;
 
-public interface ViolationSearchRepository {
+public interface ViolationFilterRepository {
 
     Page<FindViolationResponse> searchViolationWithFilter(
             ViolationSearchType searchType,
             String keyword,
-            FilterViolationDto filter, Pageable pageable);
+            FilterViolationDto filter,
+            Pageable pageable);
 
+
+    Page<FindViolationResponse> findViolationWithFilter(
+            FilterViolationDto filter,
+            Pageable pageable);
 }
