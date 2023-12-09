@@ -7,9 +7,22 @@ spring:
     active: dev
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
         format_sql: true
         use_sql_comments: true
+
+cloud:
+  aws:
+    s3:
+      bucket: ${AWS.S3.BUCKET}
+    credentials:
+      access-key: ${AWS.S3.ACCESS-KEY}
+      secret-key: ${AWS.S3.SECRET-KEY}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
