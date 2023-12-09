@@ -14,6 +14,7 @@ import project.guakamole.domain.common.dto.PageResponse;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/applicants")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ApplicantApiController {
 
     private final ApplicantService applicantService;
@@ -25,7 +26,7 @@ public class ApplicantApiController {
         return ResponseEntity.ok(applicantService.findApplicants(pageable));
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<PageResponse> searchApplicant(
             @PageableDefault(sort = "id", direction = Sort.Direction.DESC, size = 10, page = 0) Pageable pageable,
             @RequestParam(value = "searchType", required = false) Integer searchType,
@@ -41,13 +42,13 @@ public class ApplicantApiController {
         return ResponseEntity.ok(applicantService.findApplicant(applicantId));
     }
 
-    @PostMapping("/{applicantId}")
-    public ResponseEntity<Void> reviewApplicant(
+    @PatchMapping("/{applicantId}")
+    public ResponseEntity reviewApplicant(
             @PathVariable("applicantId") Long applicantId,
             @RequestBody ReviewApplicantRequest request)
     {
         applicantService.reviewApplicant(applicantId, request);
 
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }
