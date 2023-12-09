@@ -36,3 +36,9 @@ ${DATABASE_NAME} : 데이터베이스 이름
 ${DATABASE_USERNAME} : 데이터베이스 사용자 이름
 
 ${DATABASE_PASSWORD} : 데이트베이스 비밀번호
+
+${AWS_S3_BUCKET} : AWS S3 버킷 이름
+
+${AWS_S3_ACCESS-KEY} : AWS S3 엑세스 키
+
+${AWS_S3_SECRET-KEY} : AWS S3 시크릿 
