@@ -13,7 +13,9 @@ services:
     ports: #port 지정
       - 3306:3306
     volumes:
-      - ./mysql/conf.d:/etc/mysql/conf.d # MySQL 설정 파일 위치
+      - /docker_projects/mysql_1/conf.d:/etc/mysql/conf.d
+      - /docker_projects/mysql_1/mysql:/var/lib/mysql
+      - /docker_projects/mysql_1/run/mysqld:/run/mysqld
     networks:
       - custom_network
   project:
