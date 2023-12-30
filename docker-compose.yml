@@ -12,10 +12,6 @@ services:
       - --collation-server=utf8mb4_unicode_ci
     ports: #port 지정
       - 3306:3306
-    volumes:
-      - /docker_projects/mysql_1/conf.d:/etc/mysql/conf.d
-      - /docker_projects/mysql_1/mysql:/var/lib/mysql
-      - /docker_projects/mysql_1/run/mysqld:/run/mysqld
     networks:
       - custom_network
   project:
