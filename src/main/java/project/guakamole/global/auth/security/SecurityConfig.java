@@ -50,10 +50,15 @@ public class SecurityConfig {
         return http.build();
     }
 
+
     private RequestMatcher[] requestPermitAll() {
         List<RequestMatcher> requestMatchers = List.of(
                 antMatcher(GET, "/auth/**"),
-                antMatcher(POST, "/auth/**"));
+                antMatcher(POST, "/auth/**"),
+                antMatcher(GET, "/swagger-ui/**"),
+                antMatcher(POST, "/swagger-ui/**"),
+                antMatcher(GET, "/v3/**"),
+                antMatcher(POST, "/v3/**"));
         return requestMatchers.toArray(RequestMatcher[]::new);
     }
 
