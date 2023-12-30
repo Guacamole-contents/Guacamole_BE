@@ -49,12 +49,12 @@ public class JwtTokenProvider {
         return key;
     }
 
-    public JwtToken createJwtToken(Long userId) {
+    public JwtToken createJwtToken(Long userId, String userRole) {
         Date accessExpiryDate = getExpiryDate(accessTokenExpiry);
         Date refreshExpiryDate = getExpiryDate(refreshTokenExpiry);
         return JwtToken.builder()
                 .userId(userId)
-                .role("ROLE_USER")
+                .role(userRole)
                 .accessExpiry(accessExpiryDate)
                 .refreshExpiry(refreshExpiryDate)
                 .key(getSecretKey())
