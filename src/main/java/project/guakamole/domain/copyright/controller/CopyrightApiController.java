@@ -16,6 +16,7 @@ import project.guakamole.domain.copyright.service.CopyrightService;
 
 import java.net.URI;
 @Tag(name = "저작물 컨트롤러", description = " 저작물 관련 컨트롤러 입니다.")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/copyrights")
 @RequiredArgsConstructor
