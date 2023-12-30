@@ -14,6 +14,7 @@ import project.guakamole.domain.applicant.dto.response.DetailApplicantResponse;
 import project.guakamole.domain.applicant.service.ApplicantService;
 import project.guakamole.domain.common.dto.PageResponse;
 @Tag(name = "서비스 신청자 컨트롤러", description = " 서비스 신청자 관련 컨트롤러 입니다.")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/applicants")
