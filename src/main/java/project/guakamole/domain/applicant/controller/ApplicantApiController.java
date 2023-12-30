@@ -14,7 +14,6 @@ import project.guakamole.domain.common.dto.PageResponse;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/applicants")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ApplicantApiController {
 
     private final ApplicantService applicantService;

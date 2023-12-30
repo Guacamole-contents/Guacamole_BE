@@ -14,7 +14,6 @@ import project.guakamole.domain.creator.service.CreatorService;
 @RestController
 @RequestMapping("/api/creators")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CreatorController {
 
     private final CreatorService creatorService;

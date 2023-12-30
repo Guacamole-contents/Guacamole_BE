@@ -27,7 +27,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/violations")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ViolationApiController {
     private final ViolationService violationService;
 

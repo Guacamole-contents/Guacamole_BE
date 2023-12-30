@@ -15,7 +15,6 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/copyrights")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CopyrightApiController {
     private final CopyrightService copyrightService;
 
