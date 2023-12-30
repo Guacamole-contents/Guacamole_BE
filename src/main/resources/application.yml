@@ -2,6 +2,8 @@ server:
   port: ${APPLICATION.PORT:8080}
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   profiles:
     include: secret
     active: dev

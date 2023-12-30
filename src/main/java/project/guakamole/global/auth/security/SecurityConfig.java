@@ -64,6 +64,12 @@ public class SecurityConfig {
 
     private RequestMatcher[] requestHasRoleUser() {
         List<RequestMatcher> requestMatchers = List.of(
+        );
+        return requestMatchers.toArray(RequestMatcher[]::new);
+    }
+
+    private RequestMatcher[] requestHasRoleAdmin() {
+        List<RequestMatcher> requestMatchers = List.of(
                 antMatcher(GET, "/api/applicants/**"),
                 antMatcher(POST, "/api/applicants/**"),
                 antMatcher(PATCH, "/api/applicants/**"),
@@ -81,16 +87,6 @@ public class SecurityConfig {
                 antMatcher(PATCH, "/api/violations/**"),
                 antMatcher(DELETE, "/api/violations/**")
         );
-        return requestMatchers.toArray(RequestMatcher[]::new);
-    }
-
-    private RequestMatcher[] requestHasRoleAdmin() {
-        List<RequestMatcher> requestMatchers = List.of(
-                antMatcher("/api/v1/main-categories/**"),
-                antMatcher("/api/v1/sub-categories/**"),
-                antMatcher("/api/v1/items/**"),
-                antMatcher("/api/v1/events/**"),
-                antMatcher(POST, "/api/v1/coupons"));
         return requestMatchers.toArray(RequestMatcher[]::new);
     }
 }

@@ -60,7 +60,7 @@ public class AuthService {
         if (!passwordEncoder.matches(password, findUser.getPassword()))
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
 
-        JwtToken jwtToken = jwtTokenProvider.createJwtToken(findUser.getId());
+        JwtToken jwtToken = jwtTokenProvider.createJwtToken(findUser.getId(), findUser.getUserRole().toString());
         return AuthResponse.of(jwtToken);
     }
 
