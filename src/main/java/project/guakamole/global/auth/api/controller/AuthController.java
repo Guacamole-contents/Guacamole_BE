@@ -1,5 +1,6 @@
 package project.guakamole.global.auth.api.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import project.guakamole.global.auth.api.dto.response.AuthResponse;
 import project.guakamole.global.auth.api.service.AuthService;
 import project.guakamole.global.auth.jwt.JwtTokenProvider;
 
+@Tag(name = "인증/인가 컨트롤러", description = "JWT 토큰 방식")
 @Slf4j
 @RestController
 @RequestMapping("/auth")
@@ -22,6 +24,7 @@ public class AuthController {
         this.jwtTokenProvider = jwtTokenProvider;
         this.authService = authService;
     }
+
 
     @PostMapping(value = "/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
