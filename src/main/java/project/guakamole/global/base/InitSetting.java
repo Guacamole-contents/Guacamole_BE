@@ -1,6 +1,7 @@
 package project.guakamole.global.base;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Configuration
 @Profile({"dev", "prod"})
+@Slf4j
 @Transactional
 public class InitSetting {
     @Bean
@@ -26,6 +28,8 @@ public class InitSetting {
             if(_user.isEmpty()){
                 authService.adminSignup(AppConfig.getAdminEmail(), AppConfig.getAdminPassword());
             }
+
+            log.info("시작");
 
         };
     }
