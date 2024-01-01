@@ -14,7 +14,7 @@ import project.guakamole.domain.creator.dto.request.UpdateCreatorActiveRequest;
 import project.guakamole.domain.creator.dto.response.DetailCreatorResponse;
 import project.guakamole.domain.creator.service.CreatorService;
 @Tag(name = "저작권자 컨트롤러", description = " 저작권자(서비스 이용자) 관련 컨트롤러 입니다.")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/creators")
 @RequiredArgsConstructor
