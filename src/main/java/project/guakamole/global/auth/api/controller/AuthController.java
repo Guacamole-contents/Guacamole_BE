@@ -12,7 +12,7 @@ import project.guakamole.global.auth.api.service.AuthService;
 import project.guakamole.global.auth.jwt.JwtTokenProvider;
 
 @Tag(name = "인증/인가 컨트롤러", description = "JWT 토큰 방식")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Slf4j
 @RestController
 @RequestMapping("/auth")
