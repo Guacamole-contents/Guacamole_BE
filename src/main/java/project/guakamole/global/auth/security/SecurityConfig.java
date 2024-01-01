@@ -39,8 +39,8 @@ public class SecurityConfig {
         http
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                         .requestMatchers(antMatcher(OPTIONS)).permitAll()
+                        .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                         .requestMatchers(requestPermitAll()).permitAll()
                         .requestMatchers(requestHasRoleUser()).hasRole("USER")
                         .requestMatchers(requestHasRoleAdmin()).hasRole("ADMIN")
