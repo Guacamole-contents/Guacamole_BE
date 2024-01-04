@@ -31,6 +31,7 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse response = authService.checkLoginValidity(request.getEmail(), request.getPassword());
 
+        log.info("로그인 성공");
         return ResponseEntity.ok(response);
     }
 

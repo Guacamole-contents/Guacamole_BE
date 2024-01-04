@@ -2,6 +2,7 @@ package project.guakamole.global.auth.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -10,13 +11,12 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.SecurityContextHolderFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import project.guakamole.global.auth.jwt.JwtTokenProvider;
 import project.guakamole.global.auth.jwt.JwtAuthenticationFilter;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.HttpMethod.*;
@@ -25,7 +25,6 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     private final JwtTokenProvider jwtTokenProvider;
 
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
@@ -37,7 +36,6 @@ public class SecurityConfig {
             HttpSecurity http,
             JwtTokenProvider jwtTokenProvider) throws Exception {
         http
-                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(antMatcher(OPTIONS)).permitAll()
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
@@ -53,8 +51,10 @@ public class SecurityConfig {
                 .rememberMe(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilter(corsFilter())
                 .addFilterAfter(new JwtAuthenticationFilter(jwtTokenProvider),
-                        SecurityContextHolderFilter.class);
+        CorsFilter.class)
+                .cors(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
@@ -99,15 +99,19 @@ public class SecurityConfig {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true);
-        configuration.setExposedHeaders(List.of("*"));
-        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"));
-        configuration.setMaxAge(4600L);
+    @Order(1)
+    public CorsFilter corsFilter() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(
+                List.of("http://localhost:3000", "http://localhost:3001"));
+        config.setAllowedMethods(
+                List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        config.setAllowCredentials(true);
+        config.setAllowedHeaders(List.of("*"));
+        config.setExposedHeaders(List.of("*"));
+        config.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 }
