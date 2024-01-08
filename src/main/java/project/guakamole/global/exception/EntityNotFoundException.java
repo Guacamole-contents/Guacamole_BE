@@ -1,14 +1,14 @@
 package project.guakamole.global.exception;
 
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
-public class EntityNotFoundException extends RuntimeException {
-    private final ErrorCode errorCode;
+public class EntityNotFoundException extends BaseException {
 
-    public EntityNotFoundException(final ErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
+    private static final ErrorCode code = ErrorCode.ENTITY_NOT_FOUND;
+
+    public EntityNotFoundException(String message) {
+        super(code, HttpStatus.UNAUTHORIZED, message);
     }
-
 }

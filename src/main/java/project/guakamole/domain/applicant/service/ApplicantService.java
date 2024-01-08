@@ -1,5 +1,6 @@
 package project.guakamole.domain.applicant.service;
 
+import com.amazonaws.services.kms.model.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -65,7 +66,7 @@ public class ApplicantService {
 
     private Applicant findById(Long applicantId) {
         return applicantRepository.findById(applicantId).orElseThrow(
-                () -> new IllegalArgumentException("not found applicant")
+                () -> new NotFoundException("not found applicant")
         );
     }
 }

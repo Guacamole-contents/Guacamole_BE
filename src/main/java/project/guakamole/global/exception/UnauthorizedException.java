@@ -1,10 +1,14 @@
 package project.guakamole.global.exception;
 
-public class UnauthorizedException extends RuntimeException {
-    private final String errorMessage;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
-    public UnauthorizedException(String errorMessage) {
-        super(errorMessage);
-        this.errorMessage = errorMessage;
+@Getter
+public class UnauthorizedException extends BaseException {
+
+    private static final ErrorCode code = ErrorCode.UNAUTHORIZED_TOKEN;
+
+    public UnauthorizedException(String message) {
+        super(code, HttpStatus.UNAUTHORIZED, message);
     }
 }

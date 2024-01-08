@@ -1,18 +1,14 @@
 package project.guakamole.global.auth.exception;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import project.guakamole.global.exception.BaseException;
 import project.guakamole.global.exception.ErrorCode;
 
-import java.net.http.HttpClient;
+public class LoginFailException extends BaseException {
 
-@Getter
-public class TokenExpiredException extends BaseException {
+    private static final ErrorCode code = ErrorCode.LOGIN_FAIL;
 
-    private static final ErrorCode code = ErrorCode.EXPIRED_TOKEN;
-
-    public TokenExpiredException(String message) {
+    public LoginFailException(String message) {
         super(code, HttpStatus.UNAUTHORIZED, message);
     }
 }
