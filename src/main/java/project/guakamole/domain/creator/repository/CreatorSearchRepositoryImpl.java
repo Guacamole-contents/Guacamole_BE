@@ -50,7 +50,7 @@ public class CreatorSearchRepositoryImpl implements CreatorSearchRepository {
         Long count = queryFactory
                 .select(creator.id.count())
                 .from(creator)
-                .where()
+                .where(EqSearchCond(searchType, keyword))
                 .fetchOne();
 
         return new PageImpl<>(result, pageable, count);
@@ -78,7 +78,7 @@ public class CreatorSearchRepositoryImpl implements CreatorSearchRepository {
         if (searchType == CreatorSearchType.CREATOR_NAME)
             return creator.name.contains(keyword);
 
-        throw new IllegalArgumentException("잘못된 검색 시도입니다.");
+        return creator.id.eq(0L);
     }
 
     private static boolean isLong(String strValue) {

@@ -163,7 +163,7 @@ public class ViolationFilterRepositoryImpl implements ViolationFilterRepository 
         if (searchType == ViolationSearchType.OWNER_NAME)
             return violation.copyright.ownerName.contains(keyword);
 
-        throw new IllegalArgumentException("잘못된 검색 시도입니다.");
+        return violation.copyright.id.eq(0L);
     }
 
     private static boolean isLong(String strValue) {

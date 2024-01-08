@@ -69,13 +69,16 @@ public class CopyrightSearchRepositoryImpl implements CopyrightSearchRepository{
         if (searchType == CopyrightSearchType.SOURCE_ID && isLong(keyword))
             return copyright.id.eq(Long.valueOf(keyword));
 
+        if (searchType == CopyrightSearchType.SOURCE_ID && !isLong(keyword))
+            return copyright.id.eq(0L); //아무값 안나오게
+
         if (searchType == CopyrightSearchType.OWNER_NAME)
             return copyright.ownerName.contains(keyword);
 
         if (searchType == CopyrightSearchType.COPYRIGHT_NAME)
             return copyright.copyrightName.contains(keyword);
 
-        throw new IllegalArgumentException("잘못된 검색 시도입니다.");
+        return copyright.id.eq(0L);
     }
 
     private static boolean isLong(String strValue) {

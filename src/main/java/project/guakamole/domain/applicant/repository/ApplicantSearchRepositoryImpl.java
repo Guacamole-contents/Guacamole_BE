@@ -73,7 +73,7 @@ public class ApplicantSearchRepositoryImpl implements ApplicantSearchRepository 
         if (searchType == ApplicantSearchType.EMAIL)
             return applicant.email.contains(keyword);
 
-        throw new IllegalArgumentException("잘못된 검색 시도입니다.");
+        return applicant.id.eq(0L);
     }
 
     private static boolean isLong(String strValue) {
