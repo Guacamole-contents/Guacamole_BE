@@ -13,7 +13,7 @@ public class FindCopyrightResponse {
     private final String ownerName;
     private final String originalLink;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime registeredDate;
 
     public FindCopyrightResponse(Long sourceId, String copyrightName, String ownerName, String originalLink, LocalDateTime registeredDate) {

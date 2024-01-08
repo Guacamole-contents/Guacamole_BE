@@ -1,5 +1,6 @@
 package project.guakamole.domain.user.service;
 
+import com.amazonaws.services.kms.model.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.guakamole.domain.user.entity.User;
@@ -12,7 +13,7 @@ public class UserService {
 
     public String getUserRole(Long userId){
         User user = userRepository.findById(userId).orElseThrow(
-                () -> new IllegalArgumentException("not found user")
+                () -> new NotFoundException("not found user")
         );
 
         return user.getUserRole().toString();

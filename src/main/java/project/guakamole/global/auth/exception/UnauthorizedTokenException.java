@@ -5,14 +5,12 @@ import org.springframework.http.HttpStatus;
 import project.guakamole.global.exception.BaseException;
 import project.guakamole.global.exception.ErrorCode;
 
-import java.net.http.HttpClient;
-
 @Getter
-public class TokenExpiredException extends BaseException {
+public class UnauthorizedTokenException extends BaseException {
 
-    private static final ErrorCode code = ErrorCode.EXPIRED_TOKEN;
+    private static final ErrorCode code = ErrorCode.UNAUTHORIZED_TOKEN;
 
-    public TokenExpiredException(String message) {
+    public UnauthorizedTokenException(String message) {
         super(code, HttpStatus.UNAUTHORIZED, message);
     }
 }

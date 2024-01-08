@@ -1,6 +1,6 @@
 package project.guakamole.global.auth.api.service;
 
-import jakarta.validation.Valid;
+import com.amazonaws.services.kms.model.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import project.guakamole.domain.user.entity.User;
 import project.guakamole.domain.user.entity.UserRole;
 import project.guakamole.domain.user.repository.UserRepository;
-import project.guakamole.global.auth.api.dto.request.SignUpRequest;
 import project.guakamole.global.auth.api.dto.response.AuthResponse;
+import project.guakamole.global.auth.exception.LoginFailException;
 import project.guakamole.global.auth.jwt.JwtToken;
 import project.guakamole.global.auth.jwt.JwtTokenProvider;
 import project.guakamole.global.config.AppConfig;
@@ -58,7 +58,7 @@ public class AuthService {
         User findUser = findUserByEmail(email);
 
         if (!passwordEncoder.matches(password, findUser.getPassword()))
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new LoginFailException("비밀번호가 일치하지 않습니다.");
 
         JwtToken jwtToken = jwtTokenProvider.createJwtToken(findUser.getId(), findUser.getUserRole().toString());
         return AuthResponse.of(jwtToken);
@@ -66,7 +66,13 @@ public class AuthService {
 
     public User findUserByEmail(String email){
         return userRepository.findByEmail(email).orElseThrow(
-                () -> new IllegalArgumentException(email+"로 가입된 계정이 존재하지 않습니다.")
+                () -> new NotFoundException(email+"로 가입된 계정이 존재하지 않습니다.")
+        );
+    }
+
+    public User findUserByEmailForLogin(String email){
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new LoginFailException("존재하지 않는 이메일입니다.")
         );
     }
 

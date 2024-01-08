@@ -16,16 +16,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateViolationRequest {
-    @NotNull(message = "저작권 ID는 필수 데이터입니다.") @Parameter(description = "xptmxdf")
+    @NotNull(message = "저작권 ID는 필수 데이터입니다.")
     private Long sourceId;
     @NotBlank(message = "침해자명은 필수 데이터입니다.")
     private String violatorName;
     @NotNull(message = "침해 일시는 필수 데이터입니다.")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-    @Schema(description = "날짜 형식은 yyyy-MM-dd HH:mm:ss 형식으로 주세요")
     private LocalDateTime violateDate;
     @NotNull(message = "침해 구간은 필수 데이터입니다.")
-    private Integer violateMoment;
+    private String violateMoment;
     @NotBlank(message = "침해 링크는 필수 데이터입니다.")
     private String violateLink;
 }

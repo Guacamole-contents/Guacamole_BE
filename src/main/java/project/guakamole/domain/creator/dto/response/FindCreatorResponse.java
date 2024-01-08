@@ -12,13 +12,15 @@ public class FindCreatorResponse {
     private final String creatorName;
     private final String email;
     private final Integer copyrightCount;
+    private final String active;
 
     public static FindCreatorResponse of(Creator creator){
         return new FindCreatorResponse(
                 creator.getId(),
                 creator.getName(),
                 creator.getEmail(),
-                creator.getCopyrightCount()
+                creator.getCopyrightCount(),
+                creator.getActiveStatus().getValue()
         );
     }
 }

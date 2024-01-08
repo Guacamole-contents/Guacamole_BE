@@ -28,7 +28,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Tag(name = "침해 컨트롤러", description = " 침해 관련 컨트롤러 입니다.")
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/violations")
 @RequiredArgsConstructor

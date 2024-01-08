@@ -1,5 +1,6 @@
 package project.guakamole.domain.violation.service;
 
+import com.amazonaws.services.kms.model.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -112,7 +113,7 @@ public class ViolationService {
 
     private Violation findById(Long violationId){
         return violationRepository.findById(violationId).orElseThrow(
-                () -> new IllegalArgumentException("not found violation")
+                () -> new NotFoundException("not found violation")
         );
     }
 }

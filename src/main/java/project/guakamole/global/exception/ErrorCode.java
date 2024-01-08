@@ -3,35 +3,34 @@ package project.guakamole.global.exception;
 import lombok.Getter;
 
 @Getter
-public enum ErrorCode {
+public enum
+ErrorCode {
     //global
-    INTERNAL_SERVER_ERROR("G001", "Internal Server Error"),
+    INTERNAL_SERVER_ERROR(500, "G001", "Internal Server Error"),
+    REQUEST_VALID_FAIL(404, "REQEUST_VALID_FAIL", "Request 검증 실패, 에러 메시지 확인"),
+    ENTITY_NOT_FOUND(404, "ENTITY_NOT_FOUND", "해당 데이터가 존재하지 않습니다."),
 
-    INVALID_INPUT_VALUE_ERROR("G002", "유효하지 않은 입력값입니다."),
-    INVALID_METHOD_ERROR("G003", "Method Argument가 적절하지 않습니다."),
-    REQUEST_BODY_MISSING_ERROR("G004", "RequestBody에 데이터가 존재하지 않습니다."),
-    REQUEST_PARAM_MISSING_ERROR("G005", "RequestParam에 데이터가 전달되지 않았습니다."),
-    INVALID_TYPE_VALUE_ERROR("G006", "타입이 유효하지 않습니다."),
-    NOT_FOUND_ENTITY("G007", "엔티티를 찾을 수 없습니다."),
+    //AUTH
+    USER_DUPLICATE_EMAIL(404, "USER_DUPLICATE_EMAIL", "중복 이메일 에러"),
+    LOGIN_FAIL(401, "LOGIN_FAIL", "로그인 실패"),
+    USER_PASSWORD_NOT_CORRECT(401, "USER_PASSWORD_NOT_CORRECT", "비밀번호 불일치"),
 
     //s3 - image
-    FAIL_TO_UPLOAD_IMAGES("S001", "이미지를 업로드 할 수 없습니다."),
-    FAIL_TO_DELETE_IMAGE("S002", "이미지를 삭제할 수 없습니다."),
-
-    //member
-    NOT_FOUND_USER_ENTITY("M001", "사용자를 찾을 수 없습니다."),
+    FAIL_TO_UPLOAD_IMAGES(503,"FAIL_TO_UPLOAD_IMAGES", "이미지를 업로드 할 수 없습니다."),
+    FAIL_TO_DELETE_IMAGE(503, "FAIL_TO_DELETE_IMAGE", "이미지를 삭제할 수 없습니다."),
 
     //login
-    EXPIRED_TOKEN("L001", "토큰이 만료되었습니다."),
-    UNAUTHORIZED_TOKEN("L002", "인증되지 않은 토큰입니다."),
-    OAUTH_CLIENT_SERVER_ERROR("L003", "oauth 클라이언트 서버 에러입니다.");
+    EXPIRED_TOKEN(401, "EXPIRED_TOKEN", "토큰이 만료되었습니다."),
+    UNAUTHORIZED_TOKEN(401, "UNAUTHORIZED_TOKEN", "인증되지 않은 토큰");
 
     private final String code;
     private final String message;
+    private final int status;
 
-    ErrorCode(String code, String message) {
+    ErrorCode(int status, String code, String message) {
         this.code = code;
         this.message = message;
+        this.status =status;
     }
 
 }

@@ -4,6 +4,8 @@ import io.jsonwebtoken.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import project.guakamole.global.auth.exception.TokenExpiredException;
+import project.guakamole.global.auth.exception.UnauthorizedTokenException;
 
 import java.security.Key;
 import java.util.Date;
@@ -67,10 +69,12 @@ public class JwtToken {
             claims = Optional.ofNullable(getTokenClaims());
         } catch (SecurityException e) {
             log.info("Invalid JWT signature.");
+            throw new UnauthorizedTokenException("유효하지 않은 토큰입니다.");
         } catch (MalformedJwtException e) {
             log.info("Invalid JWT token.");
         } catch (ExpiredJwtException e) {
             log.info("Expired JWT token.");
+            throw new TokenExpiredException("만료된 토큰입니다.");
         } catch (UnsupportedJwtException e) {
             log.info("Unsupported JWT token.");
         } catch (IllegalArgumentException e) {
