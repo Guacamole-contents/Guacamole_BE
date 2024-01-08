@@ -1,5 +1,6 @@
 package project.guakamole.domain.copyright.service;
 
+import com.amazonaws.services.kms.model.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,7 +53,7 @@ public class CopyrightService {
     @Transactional(readOnly = true)
     public Copyright findById(Long copyrightId){
         return copyrightRepository.findById(copyrightId).orElseThrow(
-                () -> new IllegalArgumentException("not found copyright")
+                () -> new NotFoundException("not found copyright")
         );
     }
 

@@ -1,5 +1,6 @@
 package project.guakamole.domain.creator.service;
 
+import com.amazonaws.services.kms.model.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -69,7 +70,7 @@ public class CreatorService {
 
     private Creator findById(Long id) {
         return creatorRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("not found creator")
+                () -> new NotFoundException("not found creator")
         );
     }
 }

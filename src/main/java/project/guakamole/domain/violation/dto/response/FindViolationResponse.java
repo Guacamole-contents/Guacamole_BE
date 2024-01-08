@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 public class FindViolationResponse {
     private final Long violateId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime reportDate;
     private final String agreementType;
     private final Long agreementAmount;

@@ -15,11 +15,11 @@ public class DetailViolationResponse {
     private final Long sourceId;
     private final Long violateId;
     private final String violatorName;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime violateDate;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private final LocalDateTime reportDate;
-    private final Integer violateMoment;
+    private final String violateMoment;
     private final String agreementType;
     private final Long agreementAmount;
     private final String reactLevel;
@@ -34,7 +34,7 @@ public class DetailViolationResponse {
             String violatorName,
             LocalDateTime violateDate,
             LocalDateTime reportDate,
-            Integer violateMoment,
+            String violateMoment,
             String agreementType,
             Long agreementAmount,
             String reactLevel,

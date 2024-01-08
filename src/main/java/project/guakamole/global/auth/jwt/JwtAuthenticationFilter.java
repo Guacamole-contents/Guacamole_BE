@@ -34,19 +34,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             JwtToken token = tokenProvider.convertJwtToken(accessToken, refreshToken);
 
+            log.debug("jwt token 검사");
             if (token.isValidTokenClaims()) {
                 Authentication authentication = tokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
 
             filterChain.doFilter(request, response);
-            log.debug("jwt token 검사");
             return;
         }
 
-        log.debug("jwt token 없이 접근");
-        filterChain.doFilter(request, response); //
-
+        filterChain.doFilter(request, response);
     }
 
 }

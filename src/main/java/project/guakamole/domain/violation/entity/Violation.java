@@ -34,7 +34,7 @@ public class Violation extends BaseTimeEntity {
     @Column(name = "violate_date", nullable = false)
     private LocalDateTime violateDate;
     @Column(name = "violate_moment", nullable = false)
-    private Integer violateMoment;
+    private String violateMoment;
 
     @Column(name = "violate_link", nullable = false)
     private String violateLink;
@@ -64,7 +64,7 @@ public class Violation extends BaseTimeEntity {
             Copyright copyright,
             String violatorName,
             LocalDateTime violateDate,
-            Integer violateMoment,
+            String violateMoment,
             ViolateReactLevel reactLevel,
             String violateLink,
             AgreementType agreementType,
