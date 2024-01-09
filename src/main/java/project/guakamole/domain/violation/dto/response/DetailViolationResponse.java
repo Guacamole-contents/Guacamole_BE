@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import project.guakamole.domain.violation.entity.Violation;
 import project.guakamole.domain.violation.entity.ViolationContractFile;
+import project.guakamole.domain.violation.entity.ViolationImage;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,6 +27,8 @@ public class DetailViolationResponse {
     private final String agreementPaymentLink;
     private final List<String> contractFileNames;
     private final List<String> contractUrls;
+    private final List<String> imageFileNames;
+    private final List<String> imageUrls;
 
     @Builder
     public DetailViolationResponse(
@@ -40,7 +43,9 @@ public class DetailViolationResponse {
             String reactLevel,
             String agreementPaymentLink,
             List<String> contractFileNames,
-            List<String> contractUrls) {
+            List<String> contractUrls,
+            List<String> imageFileNames,
+            List<String> imageUrls) {
         this.sourceId = sourceId;
         this.violateId = violateId;
         this.violatorName = violatorName;
@@ -53,16 +58,24 @@ public class DetailViolationResponse {
         this.agreementPaymentLink = agreementPaymentLink;
         this.contractFileNames = contractFileNames;
         this.contractUrls = contractUrls;
+        this.imageFileNames = imageFileNames;
+        this.imageUrls = imageUrls;
     }
 
     public static DetailViolationResponse of(Violation violation){
         List<String> contractUrls = null;
         List<String> contractFileNames = null;
+        List<String> imagetUrls = null;
+        List<String> imageFileNames = null;
         if(violation.getContractFiles() != null && !violation.getContractFiles().isEmpty()){
             contractUrls = violation.getContractFiles().stream().map(ViolationContractFile::getUrl).collect(Collectors.toList());
             contractFileNames = violation.getContractFiles().stream().map(ViolationContractFile::getOriginalFileName).collect(Collectors.toList());
         }
 
+        if(violation.getImages() != null && !violation.getImages().isEmpty()){
+            imagetUrls = violation.getImages().stream().map(ViolationImage::getUrl).collect(Collectors.toList());
+            imageFileNames = violation.getImages().stream().map(ViolationImage::getOriginalFileName).collect(Collectors.toList());
+        }
 
         return DetailViolationResponse.builder()
                 .sourceId(violation.getCopyright().getId())
@@ -77,6 +90,8 @@ public class DetailViolationResponse {
                 .agreementPaymentLink(violation.getAgreementPaymentLink())
                 .contractFileNames(contractFileNames)
                 .contractUrls(contractUrls)
+                .imageFileNames(imageFileNames)
+                .imageUrls(imagetUrls)
                 .build()
                 ;
     }
