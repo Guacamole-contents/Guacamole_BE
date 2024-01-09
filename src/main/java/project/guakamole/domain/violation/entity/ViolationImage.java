@@ -11,7 +11,8 @@ import project.guakamole.global.base.BaseTimeEntity;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class ViolationImage extends BaseTimeEntity {
+public class
+ViolationImage extends BaseTimeEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

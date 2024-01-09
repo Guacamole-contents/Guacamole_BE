@@ -38,15 +38,16 @@ public class ViolationService {
 
         Violation violation = Violation.create(copyright, request);
 
-        List<String[]> fileNames = fileUtil.saveFiles(files);
+        if(files != null && !files.isEmpty()){
+            List<String[]> fileNames = fileUtil.saveFiles(files);
 
-        for(String[] file : fileNames) {
-            String originalFileName = file[0];
-            String translatedFileName = file[1];
+            for(String[] file : fileNames) {
+                String originalFileName = file[0];
+                String translatedFileName = file[1];
 
-            violation.addImage(new ViolationImage(violation, originalFileName, translatedFileName));
+                violation.addImage(new ViolationImage(violation, originalFileName, translatedFileName));
+            }
         }
-
 
         return violationRepository.save(violation).getId();
     }

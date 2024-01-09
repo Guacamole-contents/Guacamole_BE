@@ -55,7 +55,9 @@ public class AuthService {
     }
 
     public AuthResponse checkLoginValidity(String email, String password){
-        User findUser = findUserByEmail(email);
+        User findUser = userRepository.findByEmail(email).orElseThrow(
+                () -> new LoginFailException("가입되지 않는 이메일입니다.")
+        );
 
         if (!passwordEncoder.matches(password, findUser.getPassword()))
             throw new LoginFailException("비밀번호가 일치하지 않습니다.");
@@ -66,13 +68,7 @@ public class AuthService {
 
     public User findUserByEmail(String email){
         return userRepository.findByEmail(email).orElseThrow(
-                () -> new NotFoundException(email+"로 가입된 계정이 존재하지 않습니다.")
-        );
-    }
-
-    public User findUserByEmailForLogin(String email){
-        return userRepository.findByEmail(email).orElseThrow(
-                () -> new LoginFailException("존재하지 않는 이메일입니다.")
+                () -> new NotFoundException("NOT FOUND USER")
         );
     }
 

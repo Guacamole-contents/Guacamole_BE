@@ -38,7 +38,8 @@ public class CreatorSearchRepositoryImpl implements CreatorSearchRepository {
                                 creator.id,
                                 creator.name,
                                 creator.email,
-                                creator.copyrightCount)
+                                creator.copyrightCount,
+                                creator.activeStatus.stringValue())
                 )
                 .from(creator)
                 .where(EqSearchCond(searchType, keyword))
