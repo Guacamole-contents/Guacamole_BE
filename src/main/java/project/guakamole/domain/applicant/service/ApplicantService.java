@@ -16,6 +16,7 @@ import project.guakamole.domain.applicant.repository.ApplicantRepository;
 import project.guakamole.domain.applicant.searchtype.ApplicantSearchType;
 import project.guakamole.domain.common.dto.PageResponse;
 import project.guakamole.domain.creator.service.CreatorService;
+import project.guakamole.domain.user.service.UserService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 public class ApplicantService {
     private final ApplicantRepository applicantRepository;
     private final CreatorService creatorService;
+    private final UserService userService;
 
     @Transactional(readOnly = true)
     public PageResponse<List<FindApplicantResponse>> findApplicants(Pageable pageable) {
@@ -54,8 +56,15 @@ public class ApplicantService {
         applicant.updateApproveStatus(status);
         applicant.updateNote(request.getNote());
 
-        if(status == ApplicantApproveStatus.APPROVE)
-            creatorService.create(new ApplicantInfoDto(applicant.getCreatorName(), applicant.getEmail(), applicant.getChanelLink()));
+        if(status == ApplicantApproveStatus.DECLINE)
+            userService.updateStatusWithNone(applicant.getUserId());
+
+        if(status == ApplicantApproveStatus.APPROVE){
+            creatorService.create(
+                    new ApplicantInfoDto(applicant.getUserId(), applicant.getCreatorName(), applicant.getEmail(), applicant.getChanelLink()));
+
+            userService.updateStatusWithCreator(applicant.getUserId());
+        }
     }
 
     public DetailApplicantResponse findApplicant(Long applicantId) {

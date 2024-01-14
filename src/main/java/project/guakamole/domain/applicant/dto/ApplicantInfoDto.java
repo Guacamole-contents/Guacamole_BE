@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ApplicantInfoDto {
+    private Long userId;
     private String creatorName;
     private String email;
     private String chanelLink;

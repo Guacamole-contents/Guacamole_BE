@@ -9,6 +9,7 @@ import project.guakamole.domain.creator.entity.Creator;
 public class FindCreatorResponse {
 
     private final Long creatorId;
+    private final Long userId;
     private final String creatorName;
     private final String email;
     private final Integer copyrightCount;
@@ -17,6 +18,7 @@ public class FindCreatorResponse {
     public static FindCreatorResponse of(Creator creator){
         return new FindCreatorResponse(
                 creator.getId(),
+                creator.getUserId(),
                 creator.getName(),
                 creator.getEmail(),
                 creator.getCopyrightCount(),
