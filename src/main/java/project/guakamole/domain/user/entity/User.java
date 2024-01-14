@@ -25,7 +25,7 @@ public class User {
     private UserRole userRole;
 
     @Column(name = "status") // 0: none, 1: creator, 2: applicant ....
-    private int status;
+    private Integer status;
 
     @Builder
     public User(String email, String password, UserRole userRole) {
