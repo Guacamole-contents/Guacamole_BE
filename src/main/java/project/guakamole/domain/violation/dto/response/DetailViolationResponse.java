@@ -7,6 +7,7 @@ import project.guakamole.domain.violation.entity.Violation;
 import project.guakamole.domain.violation.entity.ViolationContractFile;
 import project.guakamole.domain.violation.entity.ViolationImage;
 
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,10 +26,9 @@ public class DetailViolationResponse {
     private final Long agreementAmount;
     private final String reactLevel;
     private final String agreementPaymentLink;
-    private final List<String> contractFileNames;
-    private final List<String> contractUrls;
-    private final List<String> imageFileNames;
-    private final List<String> imageUrls;
+
+    private final List<ContractInfoDto> contractInfos;
+    private final List<ImageInfoDto> imageInfos;
 
     @Builder
     public DetailViolationResponse(
@@ -42,10 +42,8 @@ public class DetailViolationResponse {
             Long agreementAmount,
             String reactLevel,
             String agreementPaymentLink,
-            List<String> contractFileNames,
-            List<String> contractUrls,
-            List<String> imageFileNames,
-            List<String> imageUrls) {
+            List<ContractInfoDto> contractInfos,
+            List<ImageInfoDto> imageInfos) {
         this.sourceId = sourceId;
         this.violateId = violateId;
         this.violatorName = violatorName;
@@ -56,25 +54,19 @@ public class DetailViolationResponse {
         this.agreementAmount = agreementAmount;
         this.reactLevel = reactLevel;
         this.agreementPaymentLink = agreementPaymentLink;
-        this.contractFileNames = contractFileNames;
-        this.contractUrls = contractUrls;
-        this.imageFileNames = imageFileNames;
-        this.imageUrls = imageUrls;
+        this.contractInfos = contractInfos;
+        this.imageInfos = imageInfos;
     }
 
     public static DetailViolationResponse of(Violation violation){
-        List<String> contractUrls = null;
-        List<String> contractFileNames = null;
-        List<String> imagetUrls = null;
-        List<String> imageFileNames = null;
+        List<ContractInfoDto> contractInfos = null;
+        List<ImageInfoDto> imageInfos = null;
         if(violation.getContractFiles() != null && !violation.getContractFiles().isEmpty()){
-            contractUrls = violation.getContractFiles().stream().map(ViolationContractFile::getUrl).collect(Collectors.toList());
-            contractFileNames = violation.getContractFiles().stream().map(ViolationContractFile::getOriginalFileName).collect(Collectors.toList());
+            contractInfos = violation.getContractFiles().stream().map(ContractInfoDto::of).toList();
         }
 
         if(violation.getImages() != null && !violation.getImages().isEmpty()){
-            imagetUrls = violation.getImages().stream().map(ViolationImage::getUrl).collect(Collectors.toList());
-            imageFileNames = violation.getImages().stream().map(ViolationImage::getOriginalFileName).collect(Collectors.toList());
+            imageInfos = violation.getImages().stream().map(ImageInfoDto::of).toList();
         }
 
         return DetailViolationResponse.builder()
@@ -88,10 +80,8 @@ public class DetailViolationResponse {
                 .agreementAmount(violation.getAgreementAmount())
                 .reactLevel(violation.getReactLevel().getValue())
                 .agreementPaymentLink(violation.getAgreementPaymentLink())
-                .contractFileNames(contractFileNames)
-                .contractUrls(contractUrls)
-                .imageFileNames(imageFileNames)
-                .imageUrls(imagetUrls)
+                .contractInfos(contractInfos)
+                .imageInfos(imageInfos)
                 .build()
                 ;
     }
