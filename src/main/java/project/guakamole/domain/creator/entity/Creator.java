@@ -19,6 +19,9 @@ public class Creator extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "userId") //nullable = false 로 추후에 변경
+    private Long userId;
     @Column(name = "chanel_name", nullable = false)
     private String name;
     @Column(name = "email", nullable = false)
@@ -32,8 +35,9 @@ public class Creator extends BaseTimeEntity {
     private CreatorActiveStatus activeStatus;
 
     @Builder
-    public Creator(String name, String email, Integer copyrightCount, String chanelLink, CreatorActiveStatus activeStatus) {
+    public Creator(Long userId, String name, String email, Integer copyrightCount, String chanelLink, CreatorActiveStatus activeStatus) {
         this.name = name;
+        this.userId = userId;
         this.email = email;
         this.copyrightCount = copyrightCount;
         this.chanelLink = chanelLink;
@@ -43,6 +47,7 @@ public class Creator extends BaseTimeEntity {
     public static Creator create(ApplicantInfoDto dto){
         return Creator.builder()
                 .name(dto.getCreatorName())
+                .userId(dto.getUserId())
                 .email(dto.getEmail())
                 .copyrightCount(0)
                 .chanelLink(dto.getChanelLink())

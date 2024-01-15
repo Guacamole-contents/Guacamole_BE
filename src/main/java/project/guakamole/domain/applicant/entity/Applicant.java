@@ -18,6 +18,8 @@ public class Applicant extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "userId") //nullable = false 로 추후에 변경
+    private Long userId;
     @Column(name = "creator_name", nullable = false)
     private String creatorName;
     @Column(name = "email", nullable = false)

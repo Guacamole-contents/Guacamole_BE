@@ -11,11 +11,23 @@ import project.guakamole.domain.user.repository.UserRepository;
 public class UserService {
     private final UserRepository userRepository;
 
-    public String getUserRole(Long userId){
-        User user = userRepository.findById(userId).orElseThrow(
+    public void updateStatusWithCreator(Long userId){
+        User user = findById(userId);
+
+        user.updateStatusWithCreator();
+    }
+
+    public void updateStatusWithNone(Long userId){
+        User user = findById(userId);
+
+        user.updateStatusWithNone();
+    }
+    public User findById(Long userId){
+        return userRepository.findById(userId).orElseThrow(
                 () -> new NotFoundException("not found user")
         );
-
-        return user.getUserRole().toString();
+    }
+    public String getUserRole(Long userId){
+        return findById(userId).getUserRole().toString();
     }
 }

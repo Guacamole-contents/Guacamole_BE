@@ -8,6 +8,7 @@ import project.guakamole.domain.creator.entity.Creator;
 @AllArgsConstructor
 public class DetailCreatorResponse {
     private final Long creatorId;
+    private final Long userId;
     private final String creatorName;
     private final Integer copyrightCount;
     private final String email;
@@ -17,6 +18,7 @@ public class DetailCreatorResponse {
     public static DetailCreatorResponse of(Creator creator) {
         return new DetailCreatorResponse(
                 creator.getId(),
+                creator.getUserId(),
                 creator.getName(),
                 creator.getCopyrightCount(),
                 creator.getEmail(),

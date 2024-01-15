@@ -24,10 +24,26 @@ public class User {
     @Column(name = "USER_ROLE")
     private UserRole userRole;
 
+    @Column(name = "status") // 0: none, 1: creator, 2: applicant ....
+    private Integer status;
+
     @Builder
     public User(String email, String password, UserRole userRole) {
         this.email = email;
         this.password = password;
         this.userRole = userRole;
+        this.status = 0; //초기엔 none
+    }
+
+    public void updateStatusWithCreator(){
+        this.status = 1;
+    }
+
+    public void updateStatusWithApplicant(){
+        this.status = 2;
+    }
+
+    public void updateStatusWithNone(){
+        this.status = 0;
     }
 }

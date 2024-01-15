@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @Getter
 public class DetailApplicantResponse {
     private Long id;
+    private Long userId;
     private String creatorName;
     private String email;
     private List<String> imageUrls;
@@ -17,8 +18,9 @@ public class DetailApplicantResponse {
     private String approveStatus;
     private String note;
 
-    public DetailApplicantResponse(Long id, String creatorName, String email, List<String> imageUrls, String chanelLink, String approveStatus, String note) {
+    public DetailApplicantResponse(Long id, Long userId, String creatorName, String email, List<String> imageUrls, String chanelLink, String approveStatus, String note) {
         this.id = id;
+        this.userId = userId;
         this.creatorName = creatorName;
         this.email = email;
         this.imageUrls = imageUrls;
@@ -32,6 +34,7 @@ public class DetailApplicantResponse {
 
         return new DetailApplicantResponse(
                 applicant.getId(),
+                applicant.getUserId(),
                 applicant.getCreatorName(),
                 applicant.getEmail(),
                 imageUrls,
