@@ -93,7 +93,8 @@ public class SecurityConfig {
                 antMatcher(GET, "/api/violations/**"),
                 antMatcher(POST, "/api/violations/**"),
                 antMatcher(PATCH, "/api/violations/**"),
-                antMatcher(DELETE, "/api/violations/**")
+                antMatcher(DELETE, "/api/violations/**"),
+                antMatcher(GET, "/file/download/**")
         );
         return requestMatchers.toArray(RequestMatcher[]::new);
     }
